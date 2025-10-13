@@ -1,0 +1,17 @@
+package bmcsdl_02.bmcsdl.DTO;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class UserRegister {
+  private String username;
+  private String password;
+  private String district;
+
+}
