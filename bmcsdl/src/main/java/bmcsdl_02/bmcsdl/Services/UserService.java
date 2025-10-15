@@ -1,5 +1,6 @@
 package bmcsdl_02.bmcsdl.Services;
 
+import bmcsdl_02.bmcsdl.Config.DataSource;
 import bmcsdl_02.bmcsdl.Entity.Users;
 import java.util.List;
 import java.util.Optional;
@@ -14,5 +15,4 @@ public interface UserService {
   public List<String> testConnect(String username, String password);
 
   public Optional<Users> getByUserName(String username);
-
 }

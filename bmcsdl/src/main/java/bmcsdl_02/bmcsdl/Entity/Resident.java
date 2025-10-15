@@ -2,6 +2,8 @@ package bmcsdl_02.bmcsdl.Entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Resident {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;
@@ -25,8 +28,7 @@ public class Resident {
   private String district;
   private Long pass_id;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_id")
-  private Users user;
-
+//  @OneToOne(cascade = CascadeType.ALL)
+//  @JoinColumn(name = "user_id")
+//  private Users user;
 }

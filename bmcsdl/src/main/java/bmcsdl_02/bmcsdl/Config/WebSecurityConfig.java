@@ -6,6 +6,7 @@ import bmcsdl_02.bmcsdl.Common.RoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
@@ -24,11 +26,6 @@ public class WebSecurityConfig {
   private final AuthenticationProvider authenticationProvider;
 
   @Bean
-  MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
-    return new MvcRequestMatcher.Builder(introspector);
-  }
-
-  @Bean
   public SecurityFilterChain applicationSecutiry(HttpSecurity http) throws Exception{
     http
         .cors().and()
@@ -36,10 +33,10 @@ public class WebSecurityConfig {
         .authorizeHttpRequests()
         .requestMatchers(antMatcher("/api/auth/**")).permitAll()
         .requestMatchers(antMatcher("/user/**")).hasAuthority(RoleEnum.USER.name())
-        .requestMatchers(antMatcher("/XT/**")).hasAuthority(RoleEnum.XT.name())
-        .requestMatchers(antMatcher("/XD/**")).hasAuthority(RoleEnum.XD.name())
-        .requestMatchers(antMatcher("/LT/**")).hasAuthority(RoleEnum.LT.name())
-        .requestMatchers(antMatcher("/GS/**")).hasAuthority(RoleEnum.GS.name())
+        .requestMatchers(antMatcher("/xt/**")).hasAuthority(RoleEnum.XT.name())
+        .requestMatchers(antMatcher("/xd/**")).hasAuthority(RoleEnum.XD.name())
+        .requestMatchers(antMatcher("/lt/**")).hasAuthority(RoleEnum.LT.name())
+        .requestMatchers(antMatcher("/gs/**")).hasAuthority(RoleEnum.GS.name())
         .anyRequest().authenticated()
         .and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

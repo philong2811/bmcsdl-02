@@ -1,17 +1,13 @@
 package bmcsdl_02.bmcsdl.Entity;
 
 import bmcsdl_02.bmcsdl.Common.RoleEnum;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,12 +27,10 @@ public class Users implements UserDetails {
   private String password;
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @Enumerated(EnumType.STRING)
   private RoleEnum role;
-
-  private Date create_date;
-  private Date update_date;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -59,15 +53,15 @@ public class Users implements UserDetails {
     return true;
   }
 
-  @JsonBackReference
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-  private List<Passport> passports;
-
-  @JsonBackReference
-  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-  private Resident resident;
-
-  @JsonBackReference
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-  private List<Renewal> renewals;
+//  @JsonBackReference
+//  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//  private List<Passport> passports;
+//
+//  @JsonBackReference
+//  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+//  private Resident resident;
+//
+//  @JsonBackReference
+//  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//  private List<Renewal> renewals;
 }
