@@ -23,13 +23,14 @@ public class Renewal {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Date submit_date;
+  private Date create_date;
   private String status;
   private String district;
-  private String verified_by;
-  private String approved_by;
+  private Long verified_by;
+  private Long approved_by;
   private String descriptions;
-
+  private Long user_id;
+  private Long pass_id;
 //  @ManyToOne
 //  @JoinColumn(name = "user_id")
 //  private Users user;
