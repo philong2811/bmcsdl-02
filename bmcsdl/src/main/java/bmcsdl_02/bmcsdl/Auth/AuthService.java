@@ -27,6 +27,8 @@ public class AuthService {
         .username(request.getUsername())
         .password(passwordEncoder.encode(request.getPassword()))
         .role(setRole)
+        .cmnd(request.getCmnd())
+        .district(request.getDistrict())
         .build();
     userRepository.save(user);
     userRepository.createUserSystem(request.getUsername(), request.getPassword());

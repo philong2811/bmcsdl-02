@@ -13,4 +13,6 @@ public class UserRegister {
   private String username;
   private String password;
   private String role;
+  private String cmnd;
+  private String district;
 }

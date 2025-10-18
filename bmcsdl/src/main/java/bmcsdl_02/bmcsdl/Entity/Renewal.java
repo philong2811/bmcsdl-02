@@ -26,7 +26,7 @@ public class Renewal {
   private Long verified_by;
   private Long approved_by;
   private String descriptions;
-  private Long user_id;
+  private String cmnd;
   private Long pass_id;
 //  @ManyToOne
 //  @JoinColumn(name = "user_id")

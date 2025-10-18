@@ -1,0 +1,18 @@
+body { font-family: Arial, sans-serif; background-color: #f3f7fb; color: #222; margin:0; padding:0; }
+.container { width: 780px; max-width:95%; margin:30px auto; background:#fff; border:1px solid #e6eef6; padding:20px 24px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+h2 { text-align:center; color:#0b5d88; margin-bottom:12px; }
+.form-box { display:flex; flex-direction:column; }
+label { margin-top:10px; font-weight:600; }
+input, select, button { padding:8px; margin-top:6px; border-radius:6px; border:1px solid #cfe3ee; box-sizing:border-box; }
+button { background:#0b5d88; color:#fff; font-weight:700; border:none; padding:10px; cursor:pointer; }
+button:hover { opacity:0.95; }
+table { width:100%; border-collapse:collapse; margin-top:12px; }
+th, td { border:1px solid #e6eef6; padding:10px; text-align:center; }
+th { background:#f0f7fb; color:#0b5d88; }
+.center { text-align:center; }
+.button-group { margin-top:18px; display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+.btn { background:#007bff; color:#fff; padding:10px 18px; border-radius:6px; text-decoration:none; font-weight:700; }
+.btn:hover { background:#0056b3; }
+.note { text-align:center; color:#666; margin-top:8px; }
+a { color:#0b5d88; text-decoration:none; }
+a:hover { text-decoration:underline; }

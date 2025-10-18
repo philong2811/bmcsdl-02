@@ -24,7 +24,7 @@ public class Resident {
   private String address;
   private String phone_number;
   private String district;
-  private Long pass_id;
+  private String pass_id;
 
 //  @OneToOne(cascade = CascadeType.ALL)
 //  @JoinColumn(name = "user_id")

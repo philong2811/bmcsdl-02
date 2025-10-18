@@ -19,7 +19,7 @@ public class Passport {
 
   private Date end_date;
   private Date create_date;
-  private Long user_id;
+  private String cmnd;
 
 //  @ManyToOne
 //  @JoinColumn(name = "user_id")

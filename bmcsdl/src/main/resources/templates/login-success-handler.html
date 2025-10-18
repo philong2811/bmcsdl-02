@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Đang Xử Lý Đăng Nhập...</title>
+</head>
+<body>
+<div style="text-align: center; padding-top: 100px;">
+  <h2>Đang xử lý đăng nhập, vui lòng chờ...</h2>
+</div>
+
+<script th:inline="javascript">
+
+  const token = [[${token}]];
+  const role = [[${role}]];
+
+  if (token && role && role !== 'null' && token !== 'null') {
+    localStorage.setItem('token', token);
+    localStorage.setItem('role', role);
+
+    let redirectPath = '/home';
+
+    switch(role) {
+      case 'XT':
+        redirectPath = '/xt';
+        break;
+      case 'XD':
+        redirectPath = '/xd';
+        break;
+      case 'LT':
+        redirectPath = '/lt';
+        break;
+      case 'GS':
+        redirectPath = '/gs';
+        break;
+    }
+    window.location.replace(redirectPath);
+  } else {
+    console.error("Thiếu token hoặc role. Đăng nhập thất bại, quay lại trang đăng nhập.");
+    window.location.replace('/login?error=true');
+  }
+</script>
+</body>
+</html>
