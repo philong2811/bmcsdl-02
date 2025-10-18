@@ -26,6 +26,7 @@ public class Users implements UserDetails {
   private String username;
   private String password;
   private String cmnd;
+  private String district;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
