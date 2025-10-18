@@ -25,7 +25,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class Users implements UserDetails {
   private String username;
   private String password;
-
+  private String cmnd;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
