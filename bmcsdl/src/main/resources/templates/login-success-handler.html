@@ -22,19 +22,38 @@
 
     switch(role) {
       case 'XT':
-        redirectPath = '/xt';
+        redirectPath = '/xt/home';
         break;
       case 'XD':
-        redirectPath = '/xd';
+        redirectPath = '/xd/home';
         break;
       case 'LT':
-        redirectPath = '/lt';
+        redirectPath = '/lt/home';
         break;
       case 'GS':
-        redirectPath = '/gs';
+        redirectPath = '/gs/home';
         break;
     }
-    window.location.replace(redirectPath);
+
+    fetch(redirectPath, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        window.location.replace(redirectPath);
+      } else {
+        console.error("Truy cập bị từ chối.");
+        window.location.replace('/login?error=true');
+      }
+    })
+    .catch(error => {
+      console.error("Có lỗi xảy ra: ", error);
+      window.location.replace('/login?error=true');
+    });
   } else {
     console.error("Thiếu token hoặc role. Đăng nhập thất bại, quay lại trang đăng nhập.");
     window.location.replace('/login?error=true');

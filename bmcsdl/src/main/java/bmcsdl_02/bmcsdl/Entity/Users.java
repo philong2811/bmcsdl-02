@@ -53,7 +53,15 @@ public class Users implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
+  @Override
+  public String getPassword() {
+    return password;
+  }
 
+  @Override
+  public String getUsername() {
+    return username;
+  }
 //  @JsonBackReference
 //  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //  private List<Passport> passports;

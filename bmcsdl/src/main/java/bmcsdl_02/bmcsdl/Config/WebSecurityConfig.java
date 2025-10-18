@@ -21,25 +21,30 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
+
   private final JwtAuthFilter jwtAuthFilter;
 
   private final AuthenticationProvider authenticationProvider;
-
   @Bean
-  public SecurityFilterChain applicationSecutiry(HttpSecurity http) throws Exception{
+  MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+    return new MvcRequestMatcher.Builder(introspector);
+  }
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
     http
         .cors().and()
-        .csrf().disable()
+        .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests()
+        .requestMatchers(antMatcher("/css/**")).permitAll()
+        .requestMatchers(antMatcher("/login")).permitAll()
         .requestMatchers(antMatcher("/user/**")).hasAuthority(RoleEnum.USER.name())
         .requestMatchers(antMatcher("/xt/**")).hasAuthority(RoleEnum.XT.name())
         .requestMatchers(antMatcher("/xd/**")).hasAuthority(RoleEnum.XD.name())
         .requestMatchers(antMatcher("/lt/**")).hasAuthority(RoleEnum.LT.name())
         .requestMatchers(antMatcher("/gs/**")).hasAuthority(RoleEnum.GS.name())
-        .requestMatchers(antMatcher("/**")).permitAll()
         .anyRequest().authenticated()
         .and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
         .and()
         .authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

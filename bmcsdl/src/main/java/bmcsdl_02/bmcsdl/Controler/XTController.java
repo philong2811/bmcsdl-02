@@ -11,16 +11,19 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-@RestController
+@Controller
 @RequestMapping("/xt")
 @RequiredArgsConstructor
+@CrossOrigin( origins = "*" , allowedHeaders = "*")
 public class XTController {
 
   @Autowired
@@ -46,8 +49,10 @@ public class XTController {
     return "hello";
   }
 
-  @GetMapping("/")
+  @GetMapping("/home")
   public String xtHome(){
+    System.out.println("User is: " + SecurityContextHolder.getContext().getAuthentication().getName());
+    System.out.println("Authorities: " + SecurityContextHolder.getContext().getAuthentication().getAuthorities());
     return "xt";
   }
 }
