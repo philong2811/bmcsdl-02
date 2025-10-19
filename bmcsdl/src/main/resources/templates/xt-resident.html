@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>XT - Xác thực</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <ul>
+    <li><a th:href="@{/xt/renewal}">Danh Sách Hồ Sơ</a></li>
+    <li><a th:href="@{/xt/resident}">Thông tin dân cư</a></li>
+    <li><a th:href="@{/}">Đăng Xuất</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <h2 th:text="${roleName}">Bộ phận Xác thực</h2>
+  <p>Thông tin dân cư</p>
+  <table>
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>CMND</th>
+      <th>Họ và tên</th>
+      <th>Địa chỉ</th>
+      <th>Quận</th>
+      <th>Số điện thoại</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="resident, stat : ${listResident}">
+      <td th:text="${stat.count}">1</td>
+      <td th:text="${resident.cmnd}">cmnd</td>
+      <td th:text="${resident.name}">district</td>
+      <td th:text="${resident.address}">create_date</td>
+      <td th:text="${resident.district}">status</td>
+      <td th:text="${resident.phone_number}">status</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

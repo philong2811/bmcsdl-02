@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>XD - Xét duyệt</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <ul>
+    <li><a th:href="@{/xd/renewal}">Danh Sách Hồ Sơ</a></li>
+    <li><a th:href="@{/xd/rules}">Quy Định</a></li>
+    <li><a th:href="@{/}">Đăng Xuất</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <p>Quy định cấp lại hộ chiếu</p>
+  <table>
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Nội dung</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="rule, stat : ${rules}">
+      <td th:text="${stat.count}">1</td>
+      <td th:text="${rule.rule}">rule</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

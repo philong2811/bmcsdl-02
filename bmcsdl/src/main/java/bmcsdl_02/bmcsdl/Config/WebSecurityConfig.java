@@ -37,6 +37,8 @@ public class WebSecurityConfig {
         .authorizeHttpRequests()
         .requestMatchers(antMatcher("/css/**")).permitAll()
         .requestMatchers(antMatcher("/login")).permitAll()
+        .requestMatchers(antMatcher("/")).permitAll()
+        .requestMatchers(antMatcher("/register")).permitAll()
         .requestMatchers(antMatcher("/user/**")).hasAuthority(RoleEnum.USER.name())
         .requestMatchers(antMatcher("/xt/**")).hasAuthority(RoleEnum.XT.name())
         .requestMatchers(antMatcher("/xd/**")).hasAuthority(RoleEnum.XD.name())
@@ -47,7 +49,11 @@ public class WebSecurityConfig {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
         .and()
         .authenticationProvider(authenticationProvider)
-        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+        .logout(logout -> logout
+            .logoutUrl("/")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID"));
     return http.build();
   }
 }

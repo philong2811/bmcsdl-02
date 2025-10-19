@@ -19,16 +19,17 @@
     <p style="color:red;text-align:center" th:text="${error}"></p>
   </form>
 
-  <p style="text-align:center;margin-top:12px;"><a href="/home">Quay về trang chủ</a></p>
+  <p style="text-align:center;margin-top:12px;"><a href="/register">Đăng ký</a></p>
 </div>
 <script>
   const token = null;
   const role = null;
+  localStorage.removeItem('token')
+  localStorage.removeItem('role')
   if(token != null){
     localStorage.setItem('token', token);
     localStorage.setItem('role', role);
   }
-
 </script>
 </body>
 </html>

@@ -54,9 +54,6 @@
       console.error("Có lỗi xảy ra: ", error);
       window.location.replace('/login?error=true');
     });
-  } else {
-    console.error("Thiếu token hoặc role. Đăng nhập thất bại, quay lại trang đăng nhập.");
-    window.location.replace('/login?error=true');
   }
 </script>
 </body>

@@ -1,50 +1,30 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Đăng ký gia hạn hộ chiếu</title>
-<link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <title>Đăng ký - Hệ thống gia hạn hộ chiếu</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<div class="container">
+  <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
+  <form action="/register" method="post" class="form-box">
 
-	<div class="container">
-		<h2>ĐƠN ĐĂNG KÝ GIA HẠN HỘ CHIẾU</h2>
-		<form class="form-box" action="/register" method="post">
-			<label for="cmnd">Số CMND / CCCD</label> <input type="text" id="cmnd"
-				name="cmnd" maxlength="20" required> <label for="passportId">Mã
-				số hộ chiếu</label> <input type="number" id="passportId" name="passportId"
-				required> <label for="district">Quận / Huyện</label> <select
-				id="district" name="district" required>
-				<option value="">-- Chọn Quận / Huyện --</option>
-				<option value="Quận 1">Quận 1</option>
-				<option value="Quận 3">Quận 2</option>
-				<option value="Quận 1">Quận 3</option>
-				<option value="Quận 3">Quận 4</option>
-				<option value="Quận 5">Quận 5</option>
-				<option value="Quận 7">Quận 6</option>
-				<option value="Quận 1">Quận 7</option>
-				<option value="Quận 3">Quận 8</option>
-				<option value="Quận 1">Quận 9</option>
-				<option value="Quận 3">Quận 10</option>
-				<option value="Quận 1">Quận 11</option>
-				<option value="Quận 3">Quận 12</option>
-				<option value="Tân Bình">Tân Bình</option>
-				<option value="Bình Thạnh">Bình Thạnh</option>
-				<option value="Gò Vấp">Gò Vấp</option>
-			</select> <label for="comments">Ghi chú (nếu có)</label>
-			<textarea id="comments" name="comments" rows="3"
-				placeholder="Ghi chú thêm..."></textarea>
+    <label for="username">Tên đăng nhập</label>
+    <input id="username" name="username" placeholder="Tên đăng nhập" required>
 
-			<button type="submit">Gửi yêu cầu gia hạn</button>
-		</form>
+    <label for="password">Mật khẩu</label>
+    <input id="password" type="password" name="password" placeholder="Mật khẩu" required>
 
-		<div class="note">
-			<p>Vui lòng kiểm tra kỹ thông tin trước khi gửi yêu cầu.</p>
-			<p>
-				<a href="/">Quay lại trang chủ</a>
-			</p>
-		</div>
-	</div>
+    <label for="confirm_password">Nhập lại mật khẩu</label>
+    <input id="confirm_password" type="password" name="confirm_password" placeholder="Nhập lại mật khẩu" required>
+    <span id="matchError" style="color: red; font-size: 0.9em; margin-top: -5px; margin-bottom: 5px;"></span>
 
+    <button type="submit" style="margin-top: 15px;">Đăng ký</button>
+    <p style="color:red;text-align:center" th:text="${error}"></p>
+  </form>
+
+  <p style="text-align:center;margin-top:12px;">Bạn đã có tài khoản? <a href="/login">Đăng nhập</a></p>
+</div>
 </body>
 </html>
