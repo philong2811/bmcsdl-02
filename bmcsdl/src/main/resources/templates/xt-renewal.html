@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>XT - Xác thực</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <ul>
+    <li><a th:href="@{/xt/renewal}">Danh Sách Hồ Sơ</a></li>
+    <li><a th:href="@{/xt/resident}">Thông tin dân cư</a></li>
+    <li><a th:href="@{/}">Đăng Xuất</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <h2 th:text="${roleName}">Bộ phận Xác thực</h2>
+  <p>Danh sách yêu cầu</p>
+  <table>
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>CMND</th>
+      <th>Quận</th>
+      <th>Thời gian tạo đơn</th>
+      <th>Trạng thái</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="renewal, stat : ${renewals}">
+      <td th:text="${stat.count}">1</td>
+      <td th:text="${renewal.cmnd}">cmnd</td>
+      <td th:text="${renewal.district}">district</td>
+      <td th:text="${renewal.create_date}">create_date</td>
+      <td th:text="${renewal.status}">status</td>
+      <td>
+        <form th:action="@{/xt/verify}" method="post">
+          <input type="hidden" name="cmnd" th:value="${renewal.cmnd}" />
+          <button type="submit">Xác thực</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

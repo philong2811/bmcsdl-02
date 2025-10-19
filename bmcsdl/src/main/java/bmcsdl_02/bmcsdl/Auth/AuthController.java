@@ -96,19 +96,19 @@ public class AuthController {
 //    return ResponseEntity.ok(authService.authenticate(request));
 //  }
 //
-//  @PostMapping("/register")
-//  public ResponseEntity<AuthRes> register(@RequestBody UserRegister request){
-//    try {
-//      if(userService.getUser(request.getUsername()).isEmpty()) {
-//        request.setUsername(request.getUsername());
-//        UserContext.setCurrentUser(request.getUsername(), request.getPassword());
-//        return ResponseEntity.ok(authService.userRegister(request));
-//      }
-//    } catch (Exception e){
-//      return ResponseEntity.status(400).body(AuthRes.builder().token(e.getMessage()).build());
-//    }
-//    return null;
-//  }
+  @PostMapping("/register")
+  public ResponseEntity<AuthRes> register(@RequestBody UserRegister request){
+    try {
+      if(userService.getUser(request.getUsername()).isEmpty()) {
+        request.setUsername(request.getUsername());
+        UserContext.setCurrentUser(request.getUsername(), request.getPassword());
+        return ResponseEntity.ok(authService.userRegister(request));
+      }
+    } catch (Exception e){
+      return ResponseEntity.status(400).body(AuthRes.builder().token(e.getMessage()).build());
+    }
+    return null;
+  }
 //  @GetMapping("/user-info")
 //  public ResponseEntity<Optional<Users>> getUserInfo(){
 //    return ResponseEntity.ok(userService.getUser(jwtServies.extractUserName(getToken())));
