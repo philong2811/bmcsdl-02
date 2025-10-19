@@ -69,13 +69,11 @@ public class AuthController {
     return "login-success-handler";
   }
 
-<<<<<<< HEAD
   @GetMapping("/register")
   public String registerForm() {
     return "register";
   }
 
-=======
 //  @PostMapping("/login-API")
 //  public ResponseEntity<AuthRes> authenticate(@RequestParam String username, @RequestParam String password){
 //    AuthReq request = AuthReq.builder()
@@ -91,7 +89,6 @@ public class AuthController {
 //    return ResponseEntity.ok(authService.authenticate(request));
 //  }
 //
->>>>>>> dcbb09afc8152b0040ed818043b67b4c6a60270f
   @PostMapping("/register")
   public ResponseEntity<AuthRes> register(@RequestBody UserRegister request){
     try {

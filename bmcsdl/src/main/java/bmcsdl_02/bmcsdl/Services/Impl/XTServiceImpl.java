@@ -21,67 +21,7 @@ import org.springframework.stereotype.Service;
 @Transactional
 @Slf4j
 public class XTServiceImpl implements XTService {
-<<<<<<< HEAD
-  @Override
-  public List<Renewal> getRenewal(String username, String password) {
-    DataSource Datasource = null;
-    JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
 
-    String sql = "SELECT * FROM ADMIN_TEST.RENEWAL";
-    List<Renewal> rs = jdbcTemplate.query(sql, new RowMapper<Renewal>() {
-      @Override
-      public Renewal mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Renewal(
-            rs.getLong("id"),
-            rs.getDate("create_date"),
-            rs.getString("status"),
-            rs.getString("district"),
-            rs.getLong("verified_by"),
-            rs.getLong("approved_by"),
-            rs.getString("descriptions"),
-            rs.getString("cmnd"),
-            rs.getLong("pass_id")
-        );
-      }
-    });
-    return rs;
-  }
-
-  @Override
-  public List<Resident> getResident(String username, String password) {
-    DataSource Datasource = null;
-    JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
-
-    String sql = "SELECT * FROM ADMIN_TEST.RESIDENT";
-    List<Resident> rs = jdbcTemplate.query(sql, new RowMapper<Resident>() {
-      @Override
-      public Resident mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Resident(
-            rs.getLong("id"),
-            rs.getString("cmnd"),
-            rs.getString("name"),
-            rs.getString("address"),
-            rs.getString("phone_number"),
-            rs.getString("district"),
-            rs.getString("pass_id")
-        );
-      }
-    });
-    return rs;
-  }
-
-  @Override
-  public int verify(String username, String password, String cmnd) {
-    DataSource Datasource = null;
-    JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
-
-    String sql = "UPDATE ADMIN_TEST.RENEWAL SET STATUS = 'Đã xác thực' WHERE CMND = ?";
-
-    int count = jdbcTemplate.update(sql, cmnd);
-    return count;
-  }
-
-=======
     @Override
     public List<Renewal> getRenewal(String username, String password) {
         DataSource Datasource = null;
@@ -141,5 +81,4 @@ public class XTServiceImpl implements XTService {
         return count;
     }
 
->>>>>>> dcbb09afc8152b0040ed818043b67b4c6a60270f
 }

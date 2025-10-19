@@ -37,10 +37,7 @@ public class WebSecurityConfig {
         .authorizeHttpRequests()
         .requestMatchers(antMatcher("/css/**")).permitAll()
         .requestMatchers(antMatcher("/login")).permitAll()
-<<<<<<< HEAD
         .requestMatchers(antMatcher("/")).permitAll()
-=======
->>>>>>> dcbb09afc8152b0040ed818043b67b4c6a60270f
         .requestMatchers(antMatcher("/register")).permitAll()
         .requestMatchers(antMatcher("/user/**")).hasAuthority(RoleEnum.USER.name())
         .requestMatchers(antMatcher("/xt/**")).hasAuthority(RoleEnum.XT.name())
