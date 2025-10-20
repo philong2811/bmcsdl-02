@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Đăng ký gia hạn hộ chiếu</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+	<ul>
+		<li><a th:href="@{/user/renewal-submit}">Đơn đã gửi</a></li>
+		<li><a th:href="@{/user/renewal-form}">Cấp lại hộ chiếu</a></li>
+		<li><a th:href="@{/}">Đăng Xuất</a></li>
+	</ul>
+</nav>
+	<div class="container">
+		<h2>ĐƠN ĐĂNG KÝ GIA HẠN HỘ CHIẾU</h2>
+		<form class="form-box" action="/user/renewal-form" method="post">
+			<label for="cmnd">Số CMND / CCCD</label>
+			<input type="text" id="cmnd" name="cmnd" maxlength="20" required>
+			<label for="district">Quận / Huyện</label>
+			<select id="district" name="district" required>
+				<option value="">-- Chọn Quận / Huyện --</option>
+				<option value="QUAN1">Quận 1</option>
+				<option value="QUAN2">Quận 2</option>
+				<option value="QUAN3">Quận 3</option>
+				<option value="QUAN4">Quận 4</option>
+				<option value="QUAN5">Quận 5</option>
+				<option value="QUAN6">Quận 6</option>
+				<option value="QUAN7">Quận 7</option>
+				<option value="QUAN8">Quận 8</option>
+				<option value="QUAN9">Quận 9</option>
+				<option value="QUAN10">Quận 10</option>
+				<option value="QUAN11">Quận 11</option>
+				<option value="QUAN12">Quận 12</option>
+				<option value="TANBINH">Tân Bình</option>
+				<option value="BINHTHANH">Bình Thạnh</option>
+				<option value="GOVAP">Gò Vấp</option>
+			</select> <label for="descriptions">Lý do làm đơn</label>
+			<textarea id="descriptions" name="descriptions" rows="3"
+				placeholder="Lý do..."></textarea>
+
+			<button type="submit">Gửi yêu cầu gia hạn</button>
+		</form>
+
+		<div class="note">
+			<p>Vui lòng kiểm tra kỹ thông tin trước khi gửi yêu cầu.</p>
+		</div>
+	</div>
+
+</body>
+</html>

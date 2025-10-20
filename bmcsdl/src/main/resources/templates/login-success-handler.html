@@ -21,6 +21,9 @@
     let redirectPath = '/home';
 
     switch(role) {
+      case 'USER':
+        redirectPath = '/user/home';
+        break;
       case 'XT':
         redirectPath = '/xt/home';
         break;

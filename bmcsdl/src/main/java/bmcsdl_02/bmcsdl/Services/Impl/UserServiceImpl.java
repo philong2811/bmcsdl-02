@@ -1,6 +1,8 @@
 package bmcsdl_02.bmcsdl.Services.Impl;
 
 import bmcsdl_02.bmcsdl.Config.DataSource;
+import bmcsdl_02.bmcsdl.Entity.RenewRole;
+import bmcsdl_02.bmcsdl.Entity.Renewal;
 import bmcsdl_02.bmcsdl.Entity.Users;
 import bmcsdl_02.bmcsdl.Repository.UserRepository;
 import bmcsdl_02.bmcsdl.Services.UserService;
@@ -27,41 +29,42 @@ public class UserServiceImpl implements UserService{
   JdbcTemplate jdbcTemplate;
 
   @Override
-  public List<Users> getAll() {
-    return userRepository.findAll();
-  }
-
-  @Override
   public Optional<Users> getUser(String username) {
     return userRepository.findByUsername(username);
   }
 
   @Override
-  public List<Users> getUserByRole(String role) {
-    return userRepository.findByRole(role);
+  public List<Renewal> getRenewal(String username, String password) {
+    DataSource Datasource = new DataSource();
+    JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
+
+    String sql = "SELECT * FROM ADMIN_TEST.RENEWAL";
+    List<Renewal> rs = jdbcTemplate.query(sql, new RowMapper<Renewal>() {
+      @Override
+      public Renewal mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new Renewal(
+            rs.getLong("id"),
+            rs.getDate("create_date"),
+            rs.getString("status"),
+            rs.getString("district"),
+            rs.getLong("verified_by"),
+            rs.getLong("approved_by"),
+            rs.getString("descriptions"),
+            rs.getString("cmnd"),
+            rs.getLong("pass_id")
+        );
+      }
+    });
+    return rs;
   }
 
-  @Override
-  public Optional<Users> getByUserName(String username) {
-    return userRepository.findByUsername(username);
-  }
-  
-  public List<String> testConnect(String username, String password) {
+  public int CreateRenewal(String username, String password, Renewal renewal) {
     DataSource Datasource = null;
     JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
 
-    if (jdbcTemplate == null) {
-      System.out.println("Repository thread: " + Thread.currentThread().getName());
-      throw new IllegalStateException("JdbcTemplate is not initialized!");
-    } else {
-      String sql = "SELECT SYS_CONTEXT('USERENV', 'SESSION_USER') AS session_user FROM dual"; // Thay đổi theo nhu cầu
-      List<String> results = jdbcTemplate.query(sql, new RowMapper<String>() {
-        @Override
-        public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-          return rs.getString("session_user");
-        }
-      });
-      return results;
-    }
+    String sql = "INSERT INTO ADMIN_TEST.RENEWAL(cmnd, district, descriptions, create_date, status) values (?,?,?,?,?)";
+
+    int count = jdbcTemplate.update(sql, renewal.getCmnd(), renewal.getDistrict(), renewal.getDescriptions(), renewal.getCreate_date(), renewal.getStatus());
+    return count;
   }
 }

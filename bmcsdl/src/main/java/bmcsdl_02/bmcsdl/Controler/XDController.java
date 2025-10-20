@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/xd")
@@ -39,5 +40,17 @@ public class XDController {
         .getPassword());
     model.addAttribute("listRenewal", listRenewal);
     return "xd-renewal";
+  }
+
+  @RequestMapping("/verify")
+  public String xtVerify(@RequestParam("cmnd") String cmnd){
+    int check = 0;
+    check = xdService.verify(UserContext.getCurrentUser().getUsername(), UserContext.getCurrentUser()
+        .getPassword(), cmnd);
+    if(check > 0)
+      return "redirect:renewal";
+    else
+      System.out.println(check);
+    return null;
   }
 }

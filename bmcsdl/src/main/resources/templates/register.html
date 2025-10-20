@@ -20,11 +20,66 @@
     <input id="confirm_password" type="password" name="confirm_password" placeholder="Nhập lại mật khẩu" required>
     <span id="matchError" style="color: red; font-size: 0.9em; margin-top: -5px; margin-bottom: 5px;"></span>
 
+    <label for="district">Quận / Huyện</label>
+    <select id="district" name="district" required>
+    <option value="">-- Chọn Quận / Huyện --</option>
+    <option value="QUAN1">Quận 1</option>
+    <option value="QUAN2">Quận 2</option>
+    <option value="QUAN3">Quận 3</option>
+    <option value="QUAN4">Quận 4</option>
+    <option value="QUAN5">Quận 5</option>
+    <option value="QUAN6">Quận 6</option>
+    <option value="QUAN7">Quận 7</option>
+    <option value="QUAN8">Quận 8</option>
+    <option value="QUAN9">Quận 9</option>
+    <option value="QUAN10">Quận 10</option>
+    <option value="QUAN11">Quận 11</option>
+    <option value="QUAN12">Quận 12</option>
+    <option value="TANBINH">Tân Bình</option>
+    <option value="BINHTHANH">Bình Thạnh</option>
+    <option value="GOVAP">Gò Vấp</option>
+    </select>
+
+    <label for="cmnd">CMND</label>
+    <input id="cmnd" name="cmnd" placeholder="CMND" required>
     <button type="submit" style="margin-top: 15px;">Đăng ký</button>
     <p style="color:red;text-align:center" th:text="${error}"></p>
   </form>
 
   <p style="text-align:center;margin-top:12px;">Bạn đã có tài khoản? <a href="/login">Đăng nhập</a></p>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm_password');
+    const matchError = document.getElementById('matchError');
+    const form = document.getElementById('registrationForm');
+
+    const checkPasswordMatch = () => {
+      if (passwordInput.value && confirmPasswordInput.value) {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+          matchError.textContent = 'Mật khẩu nhập lại không khớp.';
+          confirmPasswordInput.setCustomValidity('Mật khẩu không khớp');
+        } else {
+          matchError.textContent = '';
+          confirmPasswordInput.setCustomValidity('');
+        }
+      } else {
+        matchError.textContent = '';
+        confirmPasswordInput.setCustomValidity('');
+      }
+    };
+
+    passwordInput.addEventListener('input', checkPasswordMatch);
+    confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+
+    form.addEventListener('submit', (event) => {
+      checkPasswordMatch();
+      if (confirmPasswordInput.customError) {
+        event.preventDefault();
+      }
+    });
+  });
+</script>
 </body>
 </html>

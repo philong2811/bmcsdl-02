@@ -8,37 +8,31 @@
 <body>
 <nav class="navbar">
   <ul>
-    <li><a th:href="@{/xd/renewal}">Danh Sách Hồ Sơ</a></li>
-    <li><a th:href="@{/xd/rules}">Quy Định</a></li>
+    <li><a th:href="@{/user/renewal-submit}">Đơn đã gửi</a></li>
+    <li><a th:href="@{/user/renewal-form}">Cấp lại hộ chiếu</a></li>
     <li><a th:href="@{/}">Đăng Xuất</a></li>
   </ul>
 </nav>
 <div class="container">
-  <p>Danh sách hồ sơ</p>
+  <p>Thông tin đơn đã gửi</p>
   <table>
     <thead>
     <tr>
       <th>STT</th>
       <th>CMND</th>
-      <th>Quận</th>
-      <th>Thời gian tạo đơn</th>
+      <th>Ngày tạo đơn</th>
       <th>Trạng thái</th>
+      <th>Mô tả</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr th:each="renewal, stat : ${listRenewal}">
-      <td th:text="${stat.count}">STT</td>
+    <tr th:each="renewal, stat : ${renewals}">
+      <td th:text="${stat.count}">1</td>
       <td th:text="${renewal.cmnd}">cmnd</td>
-      <td th:text="${renewal.district}">district</td>
       <td th:text="${renewal.create_date}">create_date</td>
       <td th:text="${renewal.status}">status</td>
-      <td>
-        <form th:action="@{/xd/verify}" method="post">
-          <input type="hidden" name="cmnd" th:value="${renewal.cmnd}" />
-          <button type="submit">Xét duyệt</button>
-        </form>
-      </td>
+      <td th:text="${renewal.descriptions}">descriptions</td>
     </tr>
     </tbody>
   </table>

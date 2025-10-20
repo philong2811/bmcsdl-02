@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,22 +75,21 @@ public class AuthController {
     return "register";
   }
 
-//  @PostMapping("/login-API")
-//  public ResponseEntity<AuthRes> authenticate(@RequestParam String username, @RequestParam String password){
-//    AuthReq request = AuthReq.builder()
-//        .username(username)
-//        .password(password)
-//        .build();
-//    var check = authService.authenticate(request);
-//    if(check == null){
-//      return ResponseEntity.status(403).body(check);
-//    }
-//    UserContext user = new UserContext();
-//    user.setCurrentUser(request.getUsername(), request.getPassword());
-//    return ResponseEntity.ok(authService.authenticate(request));
-//  }
-//
   @PostMapping("/register")
+  public String register(@ModelAttribute UserRegister request, Model model){
+    try {
+      if(userService.getUser(request.getUsername()).isEmpty()) {
+        authService.userRegister(request);
+        UserContext.setCurrentUser(request.getUsername(), request.getPassword());
+        return "redirect:/login";
+      }
+    } catch (Exception e){
+      return null;
+    }
+    return null;
+  }
+
+  @PostMapping("/register-API")
   public ResponseEntity<AuthRes> register(@RequestBody UserRegister request){
     try {
       if(userService.getUser(request.getUsername()).isEmpty()) {
@@ -102,13 +102,4 @@ public class AuthController {
     }
     return null;
   }
-//  @GetMapping("/user-info")
-//  public ResponseEntity<Optional<Users>> getUserInfo(){
-//    return ResponseEntity.ok(userService.getUser(jwtServies.extractUserName(getToken())));
-//  }
-//
-//  @PostMapping("/check")
-//  public ResponseEntity<Boolean> check(@RequestBody AuthReq request){
-//    return ResponseEntity.status(200).body(authService.check(request));
-//  }
 }

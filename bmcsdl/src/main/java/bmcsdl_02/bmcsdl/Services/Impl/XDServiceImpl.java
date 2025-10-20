@@ -57,4 +57,13 @@ public class XDServiceImpl implements XDService {
     });
     return rs;
   }
+  public int verify(String username, String password, String cmnd) {
+    DataSource Datasource = null;
+    JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
+
+    String sql = "UPDATE ADMIN_TEST.RENEWAL SET STATUS = 'Đã xét duyệt', DESCRIPTIONS = 'Chờ lưu trữ hồ sơ' WHERE CMND = ?";
+
+    int count = jdbcTemplate.update(sql, cmnd);
+    return count;
+  }
 }
