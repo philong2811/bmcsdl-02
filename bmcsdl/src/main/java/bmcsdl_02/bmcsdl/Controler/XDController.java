@@ -2,6 +2,7 @@ package bmcsdl_02.bmcsdl.Controler;
 
 import bmcsdl_02.bmcsdl.Config.JwtServies;
 import bmcsdl_02.bmcsdl.Config.UserContext;
+import bmcsdl_02.bmcsdl.Entity.Passport;
 import bmcsdl_02.bmcsdl.Entity.RenewRole;
 import bmcsdl_02.bmcsdl.Entity.Renewal;
 import bmcsdl_02.bmcsdl.Services.XDService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -52,5 +54,25 @@ public class XDController {
     else
       System.out.println(check);
     return null;
+  }
+
+  @RequestMapping("/cancel")
+  public String xtCancelRenew(@RequestParam("cmnd") String cmnd, @RequestParam("descriptions") String descriptions){
+    int check = 0;
+    check = xdService.cancel(UserContext.getCurrentUser().getUsername(), UserContext.getCurrentUser()
+        .getPassword(), cmnd, descriptions);
+    if(check > 0)
+      return "redirect:renewal";
+    else
+      System.out.println(check);
+    return null;
+  }
+
+  @RequestMapping("/passport")
+  public String passportPage(Model model){
+    List<Passport> listPassport = xdService.getPassport(UserContext.getCurrentUser().getUsername(), UserContext.getCurrentUser()
+        .getPassword());
+    model.addAttribute("listPassport", listPassport);
+    return "xd-passport";
   }
 }

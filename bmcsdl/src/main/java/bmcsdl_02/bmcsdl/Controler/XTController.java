@@ -4,6 +4,7 @@ import bmcsdl_02.bmcsdl.Config.JwtServies;
 import bmcsdl_02.bmcsdl.Config.UserContext;
 import bmcsdl_02.bmcsdl.Entity.Renewal;
 import bmcsdl_02.bmcsdl.Entity.Resident;
+import bmcsdl_02.bmcsdl.Services.XDService;
 import bmcsdl_02.bmcsdl.Services.XTService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,10 @@ public class XTController {
 
     @Autowired
     XTService xtService;
+
+    @Autowired
+    XDService xdService;
+
     @Autowired
     JwtServies jwtServies;
 
@@ -49,6 +54,18 @@ public class XTController {
         int check = 0;
         check = xtService.verify(UserContext.getCurrentUser().getUsername(), UserContext.getCurrentUser()
                 .getPassword(), cmnd);
+        if(check > 0)
+            return "redirect:renewal";
+        else
+            System.out.println(check);
+        return null;
+    }
+
+    @RequestMapping("/cancel")
+    public String xtCancelRenew(@RequestParam("cmnd") String cmnd, @RequestParam("descriptions") String descriptions){
+        int check = 0;
+        check = xdService.cancel(UserContext.getCurrentUser().getUsername(), UserContext.getCurrentUser()
+            .getPassword(), cmnd, descriptions);
         if(check > 0)
             return "redirect:renewal";
         else

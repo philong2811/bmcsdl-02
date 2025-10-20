@@ -75,7 +75,7 @@ public class XTServiceImpl implements XTService {
         DataSource Datasource = null;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
 
-        String sql = "UPDATE ADMIN_TEST.RENEWAL SET STATUS = 'Đã xác thực', DESCRIPTTIONS = 'Chờ xét duyệt' WHERE CMND = ?";
+        String sql = "UPDATE ADMIN_TEST.RENEWAL SET STATUS = 'Đã xác thực', DESCRIPTIONS = 'Chờ xét duyệt' WHERE CMND = ?";
 
         int count = jdbcTemplate.update(sql, cmnd);
         return count;

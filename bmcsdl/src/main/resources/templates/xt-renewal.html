@@ -24,6 +24,7 @@
       <th>Quận</th>
       <th>Thời gian tạo đơn</th>
       <th>Trạng thái</th>
+      <th>Hành động</th>
     </tr>
     </thead>
 
@@ -35,14 +36,75 @@
       <td th:text="${renewal.create_date}">create_date</td>
       <td th:text="${renewal.status}">status</td>
       <td>
-        <form th:action="@{/xt/verify}" method="post">
+        <form th:action="@{/xt/verify}" method="post" style="display:inline-block; margin-right: 5px;">
           <input type="hidden" name="cmnd" th:value="${renewal.cmnd}" />
-          <button type="submit">Xác thực</button>
+          <button type="submit" class="action-btn verify-btn">Xác thực</button>
         </form>
+        <div style="display:inline-block;">
+          <button type="button" class="action-btn cancel-btn"
+                  th:data-cmnd="${renewal.cmnd}">
+            Hủy bỏ
+          </button>
+        </div>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
+<div id="cancelModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h3>Nhập Lý Do Hủy Bỏ</h3>
+    <form th:action="@{/xt/cancel}" method="post">
+      <input type="hidden" name="cmnd" id="modalCmndInput" />
+
+      <label for="descriptions">Lý do:</label>
+      <textarea name="descriptions" id="descriptions" rows="4" required></textarea>
+
+      <div class="modal-actions">
+        <button type="button" id="closeModalBtn" class="modal-btn cancel-close-btn">Đóng</button>
+        <button type="submit" class="modal-btn confirm-cancel-btn">Xác nhận Hủy bỏ</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('cancelModal');
+  const closeButton = document.querySelector('.close-btn');
+  const cmndInput = document.getElementById('modalCmndInput');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const cancelReasonTextarea = document.getElementById('cancelReason');
+
+  const cancelButtons = document.querySelectorAll('.cancel-btn');
+
+  function showCancelModal(cmnd) {
+    cmndInput.value = cmnd;
+    modal.style.display = 'block';
+    cancelReasonTextarea.value = '';
+    cancelReasonTextarea.focus();
+  }
+
+  cancelButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Đọc giá trị CMND từ thuộc tính data-cmnd
+      const cmnd = this.getAttribute('data-cmnd');
+      showCancelModal(cmnd);
+    });
+  });
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  closeButton.onclick = closeModal;
+  closeModalBtn.onclick = closeModal;
+
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+</script>
 </body>
 </html>

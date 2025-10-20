@@ -1,6 +1,7 @@
 package bmcsdl_02.bmcsdl.Services.Impl;
 
 import bmcsdl_02.bmcsdl.Config.DataSource;
+import bmcsdl_02.bmcsdl.Entity.Passport;
 import bmcsdl_02.bmcsdl.Entity.RenewRole;
 import bmcsdl_02.bmcsdl.Entity.Renewal;
 import bmcsdl_02.bmcsdl.Services.XDService;
@@ -65,5 +66,37 @@ public class XDServiceImpl implements XDService {
 
     int count = jdbcTemplate.update(sql, cmnd);
     return count;
+  }
+
+  @Override
+  public int cancel(String username, String password, String cmnd, String descriptions)
+  {
+    DataSource Datasource = null;
+    JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
+
+    String sql = "UPDATE ADMIN_TEST.RENEWAL SET STATUS = 'Hủy bỏ', DESCRIPTIONS = ? WHERE CMND = ?";
+
+    int count = jdbcTemplate.update(sql, descriptions, cmnd);
+    return count;
+  }
+
+  @Override
+  public List<Passport> getPassport(String username, String password) {
+    DataSource Datasource = new DataSource();
+    JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
+
+    String sql = "SELECT * FROM ADMIN_TEST.PASSPORT";
+    List<Passport> rs = jdbcTemplate.query(sql, new RowMapper<Passport>() {
+      @Override
+      public Passport mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new Passport(
+            rs.getString("id"),
+            rs.getDate("end_date"),
+            rs.getDate("create_date"),
+            rs.getString("cmnd")
+        );
+      }
+    });
+    return rs;
   }
 }

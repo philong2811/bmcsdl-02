@@ -2,7 +2,7 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>XD - Xét duyệt</title>
+  <title>XT - Xác thực</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -15,19 +15,25 @@
   </ul>
 </nav>
 <div class="container">
-  <p>Quy định cấp lại hộ chiếu</p>
+  <h2 th:text="${roleName}">Bộ phận Xác thực</h2>
+  <p>Danh sách hộ chiếu</p>
   <table>
     <thead>
     <tr>
-      <th>STT</th>
-      <th>Nội dung</th>
+      <th>Mã hộ chiếu</th>
+      <th>CMND</th>
+      <th>Ngày cấp</th>
+      <th>Ngày hết hạn</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr th:each="rule, stat : ${rules}">
+    <tr th:each="passport, stat : ${listPassport}">
       <td th:text="${stat.count}">1</td>
-      <td th:text="${rule.rule}">rule</td>
+      <td th:text="${passport.id}">cmnd</td>
+      <td th:text="${passport.cmnd}">district</td>
+      <td th:text="${passport.create_date}">create_date</td>
+      <td th:text="${passport.end_date}">end_date</td>
     </tr>
     </tbody>
   </table>

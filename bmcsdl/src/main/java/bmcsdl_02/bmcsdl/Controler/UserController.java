@@ -54,7 +54,7 @@ public class UserController {
         .cmnd(cmnd)
         .descriptions(descriptions)
         .create_date(date)
-        .status("Đang chờ...")
+        .status("Đang chờ xử lý")
         .build();
     System.out.println(request);
     int check = 0;
