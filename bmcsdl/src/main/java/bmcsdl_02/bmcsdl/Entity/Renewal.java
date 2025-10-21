@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +32,7 @@ public class Renewal {
 
    @Transient
   private String passport_id; // derived from passport by cmnd for UI
-  
+
   // Manual getter for pass_id to ensure compatibility
   public Long getPass_id() {
     return pass_id;

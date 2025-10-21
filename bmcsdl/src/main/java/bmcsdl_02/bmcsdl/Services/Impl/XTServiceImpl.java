@@ -1,14 +1,13 @@
 package bmcsdl_02.bmcsdl.Services.Impl;
 
 import bmcsdl_02.bmcsdl.Config.DataSource;
-import bmcsdl_02.bmcsdl.Entity.Passport;
+import bmcsdl_02.bmcsdl.DTO.RenewalDTO;
 import bmcsdl_02.bmcsdl.Entity.Renewal;
 import bmcsdl_02.bmcsdl.Entity.Resident;
 import bmcsdl_02.bmcsdl.Services.XTService;
 import jakarta.transaction.Transactional;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,15 +22,14 @@ import org.springframework.stereotype.Service;
 public class XTServiceImpl implements XTService {
 
     @Override
-    public List<Renewal> getRenewal(String username, String password) {
+    public List<RenewalDTO> getRenewal(String username, String password) {
         DataSource Datasource = null;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
 
         String sql = "SELECT * FROM ADMIN_TEST.RENEWAL";
-        List<Renewal> rs = jdbcTemplate.query(sql, new RowMapper<Renewal>() {
-            @Override
-            public Renewal mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new Renewal(
+        List<RenewalDTO> rs = jdbcTemplate.query(sql, new RowMapper<RenewalDTO>() {
+            public RenewalDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new RenewalDTO(
                         rs.getLong("id"),
                         rs.getDate("create_date"),
                         rs.getString("status"),
@@ -75,7 +73,7 @@ public class XTServiceImpl implements XTService {
         DataSource Datasource = null;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
 
-        String sql = "UPDATE ADMIN_TEST.RENEWAL SET STATUS = 'Đã xác thực', DESCRIPTIONS = 'Chờ xét duyệt' WHERE CMND = ?";
+        String sql = "UPDATE ADMIN_TEST.RENEWAL SET STATUS = 'Đã xác thực' WHERE CMND = ?";
 
         int count = jdbcTemplate.update(sql, cmnd);
         return count;

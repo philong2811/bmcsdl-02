@@ -1,6 +1,7 @@
 package bmcsdl_02.bmcsdl.Services.Impl;
 
 import bmcsdl_02.bmcsdl.Config.DataSource;
+import bmcsdl_02.bmcsdl.DTO.RenewalDTO;
 import bmcsdl_02.bmcsdl.Entity.Passport;
 import bmcsdl_02.bmcsdl.Entity.RenewRole;
 import bmcsdl_02.bmcsdl.Entity.Renewal;
@@ -35,15 +36,15 @@ public class XDServiceImpl implements XDService {
   }
 
   @Override
-  public List<Renewal> getRenewal(String username, String password) {
+  public List<RenewalDTO> getRenewal(String username, String password) {
     DataSource Datasource = new DataSource();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(Datasource.createDataSource(username, password));
 
     String sql = "SELECT * FROM ADMIN_TEST.RENEWAL";
-    List<Renewal> rs = jdbcTemplate.query(sql, new RowMapper<Renewal>() {
+    List<RenewalDTO> rs = jdbcTemplate.query(sql, new RowMapper<RenewalDTO>() {
       @Override
-      public Renewal mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Renewal(
+      public RenewalDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new RenewalDTO(
             rs.getLong("id"),
             rs.getDate("create_date"),
             rs.getString("status"),

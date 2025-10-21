@@ -24,6 +24,7 @@
       <th>Quận</th>
       <th>Thời gian tạo đơn</th>
       <th>Trạng thái</th>
+      <th>Lý do</th>
       <th>Hành động</th>
     </tr>
     </thead>
@@ -35,16 +36,17 @@
       <td th:text="${renewal.district}">district</td>
       <td th:text="${renewal.create_date}">create_date</td>
       <td th:text="${renewal.status}">status</td>
+      <td th:text="${renewal.descriptions}">descriptions</td>
       <td>
-        <form th:action="@{/xd/verify}" method="post" style="display:inline-block; margin-right: 5px;">
+        <form th:action="@{/xd/verify}" method="post" style="display:inline-block; margin-right: 3px;">
           <input type="hidden" name="cmnd" th:value="${renewal.cmnd}" />
-          <button type="submit" class="action-btn verify-btn">Xét duyệt</button>
+          <button type="submit" class="action-btn verify-btn"> Duyệt</button>
         </form>
 
         <div style="display:inline-block;">
           <button type="button" class="action-btn cancel-btn"
                   th:data-cmnd="${renewal.cmnd}">
-            Hủy bỏ
+            Hủy
           </button>
         </div>
       </td>

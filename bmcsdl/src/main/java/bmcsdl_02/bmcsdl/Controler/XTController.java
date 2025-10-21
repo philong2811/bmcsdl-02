@@ -2,6 +2,7 @@ package bmcsdl_02.bmcsdl.Controler;
 
 import bmcsdl_02.bmcsdl.Config.JwtServies;
 import bmcsdl_02.bmcsdl.Config.UserContext;
+import bmcsdl_02.bmcsdl.DTO.RenewalDTO;
 import bmcsdl_02.bmcsdl.Entity.Renewal;
 import bmcsdl_02.bmcsdl.Entity.Resident;
 import bmcsdl_02.bmcsdl.Services.XDService;
@@ -33,7 +34,7 @@ public class XTController {
 
     @RequestMapping({"/home", "/renewal"})
     public String xtRenewal(Model model){
-        List<Renewal> rs = xtService.getRenewal(UserContext.getCurrentUser().getUsername(), UserContext.getCurrentUser()
+        List<RenewalDTO> rs = xtService.getRenewal(UserContext.getCurrentUser().getUsername(), UserContext.getCurrentUser()
                 .getPassword());
 
         model.addAttribute("renewals", rs);
