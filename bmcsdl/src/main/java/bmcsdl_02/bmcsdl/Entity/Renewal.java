@@ -28,4 +28,20 @@ public class Renewal {
   private String descriptions;
   private String cmnd;
   private Long pass_id;
+
+   @Transient
+  private String passport_id; // derived from passport by cmnd for UI
+  
+  // Manual getter for pass_id to ensure compatibility
+  public Long getPass_id() {
+    return pass_id;
+  }
+  
+//  @ManyToOne
+//  @JoinColumn(name = "user_id")
+//  private Users user;
+//
+//  @OneToOne
+//  @JoinColumn(name = "pass_id")
+//  private Passport passport;
 }
